@@ -11,6 +11,7 @@ const knexInstance = knex({
 function searchByProductName(searchTerm) {
   knexInstance
     .select('id AS Product ID', 'name', 'price', 'category')
+    // just for fun wanted to play with column names
     .from('shopping_list')
     .where(
       'name',
@@ -20,20 +21,22 @@ function searchByProductName(searchTerm) {
     .then(result => console.log(`Your results are:`, result))
 }
 
-// searchByProductName('steak')
+searchByProductName('steak')
 
 function paginateResults(pageNumber) {
   const productsPerPage = 6
   const offset = productsPerPage * (pageNumber - 1)
   knexInstance
     .select('id AS Prod ID', 'name', 'price AS Current Price', 'category')
+    // again, playing with column names in the return
     .from('shopping_list')
     .limit(productsPerPage)
     .offset(offset)
     .then(result => console.log(`Your matching results are`, result))
 }
 
-// paginateResults(3)
+paginateResults(2)
+
 function getRecentItems(daysAgo) {
   knexInstance
     .select('name', 'price', 'category', 'date_added')
